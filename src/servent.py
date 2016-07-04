@@ -10,6 +10,7 @@ import re
 import sys
 import socket
 import struct
+import subprocess
 
 
 servers = []
@@ -161,7 +162,22 @@ def main():
   sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
   
   # Binding the socket to a tuple (ip, port).
-  ip = socket.gethostbyname(socket.gethostname())
+
+  hostname =  socket.gethostname()
+  
+  shell_cmd = "ifconfig | awk '/inet addr/{print substr($2,6)}'"
+  proc = subprocess.Popen([shell_cmd], stdout=subprocess.PIPE, shell=True)
+  (out, err) = proc.communicate()
+  
+  ip_addresses = out.split('\n')
+  ip = ip_addresses[0]
+  for x in xrange(0, len(ip_addresses)):
+    try:
+      if ip_addresses[x][:5] != "127.0" and ip_addresses[x].split(".")[3] != "1":
+        ip = ip_addresses[x]
+    except:
+      pass
+  
   print 'Running at: ', ip, int(sys.argv[1])
   sock.bind((ip, int(sys.argv[1])))
   
