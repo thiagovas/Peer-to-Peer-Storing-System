@@ -64,9 +64,11 @@ def main():
           (msg_bytes, addr) = sock.recvfrom(1024)
           print addr, " ", disassemble_message(msg_bytes)
         except socket.timeout:
+          print 'Timeout ...'
           tries+=1
           if tries==2:
             break
+    print ''
   
     
 
