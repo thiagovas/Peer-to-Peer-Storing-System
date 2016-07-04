@@ -1,0 +1,92 @@
+#
+# Services added for the Debian GNU/Linux distribution
+#
+linuxconf	98/tcp				# LinuxConf
+poppassd	106/tcp				# Eudora
+poppassd	106/udp
+moira-db	775/tcp		moira_db	# Moira database
+moira-update	777/tcp		moira_update	# Moira update protocol
+moira-ureg	779/udp		moira_ureg	# Moira user registration
+spamd		783/tcp				# spamassassin daemon
+omirr		808/tcp		omirrd		# online mirror
+omirr		808/udp		omirrd
+customs		1001/tcp			# pmake customs server
+customs		1001/udp
+skkserv		1178/tcp			# skk jisho server port
+predict		1210/udp			# predict -- satellite tracking
+rmtcfg		1236/tcp			# Gracilis Packeten remote config server
+wipld		1300/tcp			# Wipl network monitor
+xtel		1313/tcp			# french minitel
+xtelw		1314/tcp			# french minitel
+support		1529/tcp			# GNATS
+cfinger		2003/tcp			# GNU Finger
+frox		2121/tcp			# frox: caching ftp proxy
+ninstall	2150/tcp			# ninstall service
+ninstall	2150/udp
+zebrasrv	2600/tcp			# zebra service
+zebra		2601/tcp			# zebra vty
+ripd		2602/tcp			# ripd vty (zebra)
+ripngd		2603/tcp			# ripngd vty (zebra)
+ospfd		2604/tcp			# ospfd vty (zebra)
+bgpd		2605/tcp			# bgpd vty (zebra)
+ospf6d		2606/tcp			# ospf6d vty (zebra)
+ospfapi		2607/tcp			# OSPF-API
+isisd		2608/tcp			# ISISd vty (zebra)
+afbackup	2988/tcp			# Afbackup system
+afbackup	2988/udp
+afmbackup	2989/tcp			# Afmbackup system
+afmbackup	2989/udp
+xtell		4224/tcp			# xtell server
+fax		4557/tcp			# FAX transmission service (old)
+hylafax		4559/tcp			# HylaFAX client-server protocol (new)
+distmp3		4600/tcp			# distmp3host daemon
+munin		4949/tcp	lrrd		# Munin
+enbd-cstatd	5051/tcp			# ENBD client statd
+enbd-sstatd	5052/tcp			# ENBD server statd
+pcrd		5151/tcp			# PCR-1000 Daemon
+noclog		5354/tcp			# noclogd with TCP (nocol)
+noclog		5354/udp			# noclogd with UDP (nocol)
+hostmon		5355/tcp			# hostmon uses TCP (nocol)
+hostmon		5355/udp			# hostmon uses UDP (nocol)
+rplay		5555/udp			# RPlay audio service
+nrpe		5666/tcp			# Nagios Remote Plugin Executor
+nsca		5667/tcp			# Nagios Agent - NSCA
+mrtd		5674/tcp			# MRT Routing Daemon
+bgpsim		5675/tcp			# MRT Routing Simulator
+canna		5680/tcp			# cannaserver
+syslog-tls	6514/tcp			# Syslog over TLS [RFC5425]
+sane-port	6566/tcp	sane saned	# SANE network scanner daemon
+ircd		6667/tcp			# Internet Relay Chat
+zope-ftp	8021/tcp			# zope management by ftp
+tproxy		8081/tcp			# Transparent Proxy
+omniorb		8088/tcp			# OmniORB
+omniorb		8088/udp
+clc-build-daemon 8990/tcp			# Common lisp build daemon
+xinetd		9098/tcp
+mandelspawn	9359/udp	mandelbrot	# network mandelbrot
+git		9418/tcp			# Git Version Control System
+zope		9673/tcp			# zope server
+webmin		10000/tcp
+kamanda		10081/tcp			# amanda backup services (Kerberos)
+kamanda		10081/udp
+amandaidx	10082/tcp			# amanda backup services
+amidxtape	10083/tcp			# amanda backup services
+smsqp		11201/tcp			# Alamin SMS gateway
+smsqp		11201/udp
+xpilot		15345/tcp			# XPilot Contact Port
+xpilot		15345/udp
+sgi-cmsd	17001/udp		# Cluster membership services daemon
+sgi-crsd	17002/udp
+sgi-gcd		17003/udp			# SGI Group membership daemon
+sgi-cad		17004/tcp			# Cluster Admin daemon
+isdnlog		20011/tcp			# isdn logging system
+isdnlog		20011/udp
+vboxd		20012/tcp			# voice box system
+vboxd		20012/udp
+binkp		24554/tcp			# binkp fidonet protocol
+asp		27374/tcp			# Address Search Protocol
+asp		27374/udp
+csync2		30865/tcp			# cluster synchronization tool
+dircproxy	57000/tcp			# Detachable IRC Proxy
+tfido		60177/tcp			# fidonet EMSI over telnet
+fido		60179/tcp			# fidonet EMSI over TCP

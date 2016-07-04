@@ -1,0 +1,39 @@
+#
+# Datagram Delivery Protocol services
+#
+rtmp		1/ddp			# Routing Table Maintenance Protocol
+nbp		2/ddp			# Name Binding Protocol
+echo		4/ddp			# AppleTalk Echo Protocol
+zip		6/ddp			# Zone Information Protocol
+
+#=========================================================================
+# The remaining port numbers are not as allocated by IANA.
+#=========================================================================
+
+# Kerberos (Project Athena/MIT) services
+# Note that these are for Kerberos v4, and are unofficial.  Sites running
+# v4 should uncomment these and comment out the v5 entries above.
+#
+kerberos4	750/udp		kerberos-iv kdc	# Kerberos (server)
+kerberos4	750/tcp		kerberos-iv kdc
+kerberos-master	751/udp		kerberos_master	# Kerberos authentication
+kerberos-master	751/tcp
+passwd-server	752/udp		passwd_server	# Kerberos passwd server
+krb-prop	754/tcp		krb_prop krb5_prop hprop # Kerberos slave propagation
+krbupdate	760/tcp		kreg		# Kerberos registration
+swat		901/tcp				# swat
+kpop		1109/tcp			# Pop with Kerberos
+knetd		2053/tcp			# Kerberos de-multiplexor
+zephyr-srv	2102/udp			# Zephyr server
+zephyr-clt	2103/udp			# Zephyr serv-hm connection
+zephyr-hm	2104/udp			# Zephyr hostmanager
+eklogin		2105/tcp			# Kerberos encrypted rlogin
+# Hmmm. Are we using Kv4 or Kv5 now? Worrying.
+# The following is probably Kerberos v5  --- ajt@debian.org (11/02/2000)
+kx		2111/tcp			# X over Kerberos
+iprop		2121/tcp			# incremental propagation
+#
+# Unofficial but necessary (for NetBSD) services
+#
+supfilesrv	871/tcp				# SUP server
+supfiledbg	1127/tcp			# SUP debugging
