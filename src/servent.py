@@ -16,6 +16,21 @@ servers = []
 sequences = {}
 
 
+def ip2int(addr):
+  '''
+    A utilitary function that translates an address to an int.
+  '''
+  return struct.unpack("!I", socket.inet_aton(addr))[0]
+
+
+def int2ip(addr):
+  '''
+    A utilitary function that translates an int to an address.
+  '''
+  return socket.inet_ntoa(struct.pack("!I", addr)) 
+
+
+
 def read_file(filename):
   '''
     This method reads the file with the key-value pairs.
@@ -45,7 +60,7 @@ def read_file(filename):
         dictionary[key].append(value)
       else:
         dictionary[key] = [value]
-  
+  f.close()
   return dictionary
 
 
@@ -55,11 +70,15 @@ def answer_client(sock, dictionary, key, client_addr):
     This method checks if this servent contains at least a key-value pair
     the client is looking for.
   '''
-  fmt_str = "!H1000s"
+  fmt_str = "!H1022s"
+  print 'Answering client ', client_addr, ' ...'
+  print 'Searching for:', key, '...'
   if key in dictionary:
+    print 'Found!'
     for value in dictionary[key]:
       sock.sendto(struct.pack(fmt_str, 3, value), client_addr)
-  
+  print ''
+
 
 
 def sendall_query(sock, forbidden_addr, ttl, ip, port, seq_number, key):
@@ -71,25 +90,26 @@ def sendall_query(sock, forbidden_addr, ttl, ip, port, seq_number, key):
   if ttl <= 0:
     return
   
-  fmt_str = "!HHiHi1000s"
+  fmt_str = "!HHiHi1010s"
   for s in servers:
     if s != forbidden_addr:
-      msg_bytes = struct.pack(fmt_str, 2, ttl, ip, port, seq_number, key)
+      msg_bytes = struct.pack(fmt_str, 2, ttl, ip2int(ip), port, seq_number, key)
       sock.sendto(msg_bytes, s)
 
 
 
 def process_query(sock, dictionary, msg_bytes, addr):
-  fmt_str = "!HHiHH1000s"
+  fmt_str = "!HHiHi1010s"
   fields_list = struct.unpack(fmt_str, msg_bytes)
   
   ttl = int(fields_list[1])
-  ip = fields_list[2]
-  port = fields_list[3]
+  ip = int2ip(fields_list[2])
+  port = int(fields_list[3])
   seq_number = int(fields_list[4])
+  key = fields_list[5].replace('\x00', '')
   if ttl > 0:
-    answer_client(sock, dictionary, key, addr)
-    client_addr = (fields_list[2], int(fields_list[3]))
+    answer_client(sock, dictionary, key, (ip, port))
+    client_addr = (ip, port)
     if not(client_addr in sequences and sequences[client_addr] > seq_number):
       sequences[client_addr] = seq_number
       sendall_query(sock, addr, ttl-1, ip, port, seq_number, key)
@@ -98,8 +118,8 @@ def process_query(sock, dictionary, msg_bytes, addr):
 
 
 def process_clireq(sock, dictionary, msg_bytes, addr):
-  fmt_str = "!H1000s"
-  key = struct.unpack(fmt_str, msg_bytes)[1]
+  fmt_str = "!H1022s"
+  key = struct.unpack(fmt_str, msg_bytes)[1].replace('\x00', '')
   answer_client(sock, dictionary, key, addr)
   
   if not (addr in sequences):
@@ -108,11 +128,14 @@ def process_clireq(sock, dictionary, msg_bytes, addr):
     sequences[addr] += 1
   
   sendall_query(sock, ('', 0), 3, addr[0], addr[1], sequences[addr], key)
-  
 
 
 
-def process_package(sock, dictionary, msg_bytes, addr):  
+def process_package(sock, dictionary, msg_bytes, addr):
+  '''
+    Detects the type of the package received, and calls the correct
+    function to process it.
+  '''
   fmt_str = '!H1022s'
   
   fields_list = struct.unpack(fmt_str, msg_bytes)

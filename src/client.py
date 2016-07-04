@@ -17,7 +17,7 @@ def send_query_package(sock, servent_address, key):
     This function sends a query package to the servent this client knows.
   '''
   
-  fmt_str = "!H1000s"
+  fmt_str = "!H1022s"
   
   if len(key) > 1000:
     print 'The key is too large, maximum size is 1000 characters.'
@@ -33,7 +33,7 @@ def disassemble_message(msg_bytes):
     Function to disassemble a package this client received from a servent.
   '''
   
-  fmt_str = "!H1000s"
+  fmt_str = "!H1022s"
   fields_list = struct.unpack(fmt_str, msg_bytes)
   return fields_list[1]
 
