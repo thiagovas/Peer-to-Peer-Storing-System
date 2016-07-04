@@ -34,19 +34,20 @@ class MyTopo( Topo ):
         switch5 = self.addSwitch( 's5' )
         
         # Add links
+        self.addLink(switch1, switch2)
+        self.addLink(switch2, switch3)
+        self.addLink(switch3, switch4)
+        self.addLink(switch4, switch5)
+	
         self.addLink(cliente, switch1)
         self.addLink(switch1, serv1)
 
-        self.addLink(serv1, switch2)
         self.addLink(switch2, serv2)
 
-        self.addLink(serv2, switch3)
         self.addLink(switch3, serv3)
 
-        self.addLink(serv3, switch4)
         self.addLink(switch4, serv4)
 
-        self.addLink(serv4, switch5)
         self.addLink(switch5, serv5)
 
 
